@@ -44,7 +44,11 @@
 </style>
 <script>
   (async function init() {
-    const response = await fetch('http://localhost:8080/get-data');
+    // HOST must be the server IP or DNS name when app running on a server
+    // and localhost when running locally
+    const HOST = "localhost";
+
+    const response = await fetch(`http://${HOST}:8080/get-data`);
     console.log("response", response);
     const data = await response.json();
     console.log("stringified data: " + JSON.stringify(data));
@@ -112,7 +116,7 @@
       });
     });
 
-    const response = await fetch('http://localhost:8080/update-roles', {
+    const response = await fetch(`http://${HOST}:8080/update-roles`, {
       method: "POST",
       headers: {
         'Accept': 'application/json',
