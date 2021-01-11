@@ -13,9 +13,9 @@ import java.sql.SQLException;
 public class DatabaseConfig {
 
     // private final Environment env;
-    private String user = "admin";
-    private String password = "adminpass";
-    private String serverName = "localhost";
+    private String user = System.getenv("DB_USER");
+    private String password = System.getenv("DB_PWD");
+    private String serverName = System.getenv("DB_SERVER");
     private String dbName = "team-member-projects";
     private MysqlDataSource datasource = new MysqlDataSource();
 

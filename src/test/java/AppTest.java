@@ -1,17 +1,22 @@
 import com.example.Application;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+@Component
 public class AppTest {
+
+    @Autowired
+    Connection connection;
 
     @Test
     public void testAppOne() {
-        Application myApp = new Application();
-
-        String result = myApp.getStatus();
-
+        Application myapp = new Application(connection);
+        String result = myapp.getStatus();
         assertEquals("OK", result);
     }
 
