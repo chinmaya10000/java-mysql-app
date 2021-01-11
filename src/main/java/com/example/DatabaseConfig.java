@@ -14,7 +14,7 @@ public class DatabaseConfig {
     private String user = System.getenv("DB_USER");
     private String password = System.getenv("DB_PWD");
     private String serverName = System.getenv("DB_SERVER");
-    private String dbName = "team-member-projects";
+    private String dbName = System.getenv("DB_SERVER");
     private MysqlDataSource datasource = new MysqlDataSource();
 
     public DatabaseConfig() {
