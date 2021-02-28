@@ -46,7 +46,7 @@
   (async function init() {
     // HOST must be the server IP or DNS name when app running on a server
     // and localhost when running locally
-    const HOST = "localhost";
+    var HOST = "localhost";
 
     const response = await fetch(`http://${HOST}:8080/get-data`);
     console.log("response", response);
