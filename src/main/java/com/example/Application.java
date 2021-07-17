@@ -1,11 +1,13 @@
 package com.example;
 
+import io.prometheus.client.exporter.HTTPServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +42,11 @@ public class Application {
             e.printStackTrace();
         }
 
+        try {
+            HTTPServer server = new HTTPServer(8081);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createTable(Statement stmt) throws SQLException {

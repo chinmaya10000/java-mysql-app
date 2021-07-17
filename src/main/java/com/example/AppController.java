@@ -1,5 +1,6 @@
 package com.example;
 
+import io.prometheus.client.CollectorRegistry;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,11 +13,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import io.prometheus.client.Counter;
+import io.prometheus.client.Gauge;
 
 @RestController
 public class AppController {
 
     private final Connection dbConnection;
+    static final Counter totalRequests = Counter.build()
+            .name("http_requests").help("Total requests.").register();
+    static final Gauge inprogressRequests = Gauge.build()
+            .name("inprogress_requests").help("Inprogress requests.").register();
 
     public AppController(Connection dbConnection) {
         this.dbConnection = dbConnection;
@@ -24,13 +31,19 @@ public class AppController {
 
     @GetMapping("/get-data")
     public ResponseEntity getData() {
+        inprogressRequests.inc();
+        totalRequests.inc();
         List<User> users = fetchDataFromDB();
+        inprogressRequests.dec();
         return ResponseEntity.ok(users);
     }
 
     @PostMapping("/update-roles")
     public ResponseEntity updateRoles(@RequestBody ArrayList<User> users) {
+        inprogressRequests.inc();
+        totalRequests.inc();
         updateDatabase(users);
+        inprogressRequests.dec();
         return ResponseEntity.ok(users);
     }
 

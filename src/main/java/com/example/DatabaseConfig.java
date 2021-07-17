@@ -24,8 +24,6 @@ public class DatabaseConfig {
         datasource.setDatabaseName(dbName);
         //datasource.setPort(3306) default config
         //datasource.setURL("jdbc:mysql://localhost:3306/dbname");
-
-
     }
 
     @Bean
