@@ -21,9 +21,9 @@ public class AppController {
 
     private final Connection dbConnection;
     static final Counter totalRequests = Counter.build()
-            .name("http_requests").help("Total requests.").register();
+            .name("java_app_http_requests_total").help("Total requests.").register();
     static final Gauge inprogressRequests = Gauge.build()
-            .name("inprogress_requests").help("Inprogress requests.").register();
+            .name("java_app_inprogress_requests").help("Inprogress requests.").register();
 
     public AppController(Connection dbConnection) {
         this.dbConnection = dbConnection;
