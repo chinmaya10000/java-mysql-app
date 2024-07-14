@@ -1,7 +1,7 @@
 version: '3'
 services:
   java-app:
-    image: nanajanashia/demo-app:java-maven-2.0
+    image: chinmayapradhan/java-mysql-app:1.0
     environment:
       - DB_USER=user
       - DB_PWD=pass
