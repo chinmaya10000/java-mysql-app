@@ -1,0 +1,40 @@
+version: '3'
+services:
+  
+  java-app:
+    image: chinmayapradhan/java-mysql-app:1.0
+    ports:
+      - 8080:8080
+    environment:
+      - DB_USER=user 
+      - DB_PWD=pass
+      - DB_SERVER=mysql 
+      - DB_NAME=my-app-db 
+    container_name: my-java-app 
+  
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_DATABASE=my-app-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+    volumes:
+      - mysql-data:/var/lib/mysql
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8083:80
+    environment:
+      - PMA_HOST=mysql
+    container_name: phpmyadmin 
+
+volumes:
+  mysql-data:
+    driver: local
+
