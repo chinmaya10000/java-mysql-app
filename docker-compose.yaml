@@ -20,6 +20,8 @@ services:
     ports:
       - 8083:80
     container_name: phpmyadmin
+    depends_on:
+      - mysql
 volumes:
   mysql-data:
     driver: local
