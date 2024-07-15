@@ -1,18 +1,7 @@
 version: '3.8'
 
 services:
-  my-java-app:
-    image: chinmayapradhan/java-mysql-app:1.0
-    ports:
-      - "8080:8080"
-    environment:
-      DB_USER: admin
-      DB_PWD: adminpass
-      DB_SERVER: mysql
-      DB_NAME: team-member-projects
-    container_name: my-java-app
-    depends_on:
-      - mysql
+
   mysql:
     image: mysql:8.0
     container_name: mysql
