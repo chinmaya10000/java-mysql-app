@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /home/ubuntu/bootcamp-java-mysql/mysqldata  # Change to a suitable path on your host
+    path: /home/ubuntu/java-mysql/mysqldata  # Change to a suitable path on your host
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
