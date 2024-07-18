@@ -1,0 +1,21 @@
+architecture: replication 
+auth:
+  rootPassword: secret-root-pass
+  database: my-app-db
+  username: my-user
+  password: my-pass
+
+volumePermissions:
+  enabled: true 
+
+primary:
+  persistence:
+    enabled: false
+
+secondary:
+  replicaCount: 2
+  persistence:
+    enabled: false
+
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+# helm install my-release bitnami/mysql -f mysql-chart-values-eks.yaml
