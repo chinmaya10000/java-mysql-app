@@ -35,7 +35,7 @@ pipeline {
                     
                     sh "aws eks update-kubeconfig --name ${CLUSTER_NAME} --region ${CLUSTER_REGION}"
 
-                    sh 'kubectl create deployment nginx-deployment --image=nginx'
+                    sh 'envsubst < eks-deployment/db-config.yaml | kubectl apply -f -'
                 }
             }
         }
