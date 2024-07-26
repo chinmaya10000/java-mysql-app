@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: my-java-app.com
+  - host: a9f4a4df8756d4b1b87c77cf5e2cc5a6-1112082637.us-east-2.elb.amazonaws.com
     http:
       paths:
       - path: /
