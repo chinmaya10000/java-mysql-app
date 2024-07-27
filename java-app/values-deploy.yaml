@@ -1,0 +1,28 @@
+appName: java-app
+appReplicas: 3
+registrySecret: my-registry-key
+appContainerName: java-app
+appImage: chinmayapradhan/java-mysql-app
+appVersion: 1.0
+containerPort: 8080
+
+servicePort: 8080
+
+configName: db-config
+configData:
+  DB_SERVER: my-release-mysql-primary
+
+secretName: db-secret
+secretData:
+  DB_USER: my-user
+  DB_PWD: my-pass
+  DB_NAME: my-app-db
+  MYSQL_ROOT_PASSWORD: secret-root-pass
+
+regularData: {}
+ # MY_ENV: my-value
+
+ingress:
+  hostName: my-java-app.com # set this value to aws nodebalancer address for EKS
+  pathType: Exact
+  path: /
