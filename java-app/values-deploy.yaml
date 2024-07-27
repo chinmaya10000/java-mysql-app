@@ -3,7 +3,7 @@ appReplicas: 3
 registrySecret: my-registry-key
 appContainerName: java-app
 appImage: chinmayapradhan/java-mysql-app
-appVersion: 1.0
+appVersion: "1.0"
 containerPort: 8080
 servicePort: 8080
 configName: db-config
