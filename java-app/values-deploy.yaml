@@ -26,3 +26,7 @@ ingress:
   hostName: my-java-app.com # set this value to aws nodebalancer address for EKS
   pathType: Exact
   path: /
+
+
+# helm install my-cool-java-app java-app -f java-app/values-deploy.yaml --dry-run --debug
+# helm install my-cool-java-app java-app -f java-app/values-deploy.yaml
