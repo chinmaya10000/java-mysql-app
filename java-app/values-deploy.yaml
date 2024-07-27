@@ -23,7 +23,7 @@ regularData: {}
  # MY_ENV: my-value
 
 ingress:
-  hostName: my-java-app.com # set this value to aws nodebalancer address for EKS
+  hostName: acd902aaa8cec4dde8a461be087678ee-1044542187.us-east-2.elb.amazonaws.com # set this value to aws nodebalancer address for EKS
   pathType: Exact
   path: /
 
