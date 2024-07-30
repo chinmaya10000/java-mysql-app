@@ -8,18 +8,23 @@ spec:
     receiver: 'email'
     repeatInterval: 30m
     routes:
-    - receiver: 'email'
-      matchers:
-      - name: alertname
-        value: NginxHighHttp4xxErrorRate
+    - matchers:
       - name: alertname
         value: KubernetesStatefulsetDown
-      - name: alertname
+    - matchers:
+      - name: alertname 
         value: MysqlDown
+    - matchers:
       - name: alertname
         value: MysqlTooManyConnections
+    - matchers:
       - name: alertname
         value: JavaTooManyConnections
+    - matchers:
+      - name: alertname
+        value: NginxHighHttp4xxErrorRate
+      repeatInterval: 10m 
+
 receivers:
 - name: 'email'
   emailConfigs:
