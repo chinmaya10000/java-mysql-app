@@ -10,7 +10,7 @@ spec:
   - name: java.rules
     rules:
     - alert: JavaTooManyConnections
-      expr: (rate(java_app_http_requests_total[1m])) * 100) > 80
+      expr: (rate(java_app_http_requests_total[1m]) * 100) > 80
       for: 2m
       labels:
         severity: warning
