@@ -6,7 +6,7 @@ metadata:
 spec:
   route:
     receiver: 'email'
-    repeatinterval: 30m
+    repeatInterval: 30m
     routes:
     - receiver: 'email'
       matchers:
