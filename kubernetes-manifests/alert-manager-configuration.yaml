@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: main-rules-alert-config
+  namespace: monitoring
+spec:
+  route:
+    receiver: 'email'
+    repeatinterval: 30m
+    routes:
+    - receiver: 'email'
+      matchers:
+      - name: alertname
+        value: NginxHighHttp4xxErrorRate
+      - name: alertname
+        value: KubernetesStatefulsetDown
+      - name: alertname
+        value: MysqlDown
+      - name: alertname
+        value: MysqlTooManyConnections
+      - name: alertname
+        value: JavaTooManyConnections
+receivers:
+- name: 'email'
+  emailConfigs:
+  - to: 'chinmayapradhan10000@gmail.com'
+    from: 'chinmayapradhan10000@gmail.com'
+    smarthost: 'smtp.gmail.com:587'
+    authUsername: 'chinmayapradhan10000@gmail.com'
+    authIdentity: 'chinmayapradhan10000@gmail.com'
+    authPassword:
+      name: gmail-auth
+      key: password

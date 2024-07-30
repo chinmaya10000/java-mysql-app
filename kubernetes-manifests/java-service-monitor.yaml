@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: java-app-sm
+  labels:
+    release: monitoring-stack
+    app: java-app
+spec:
+  endpoints:
+  - interval: 20s
+    # port-name in service
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      # label on java-app service
+      app: java-app
