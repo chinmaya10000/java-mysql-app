@@ -17,4 +17,3 @@ spec:
       annotations:
         summary: Kubernetes StatefulSet down (instance {{ $labels.instance }})
         description: "A StatefulSet went down\n VALUE = {{ $value }}\n LABELS = {{ $labels }}"
-    - alert
