@@ -34,6 +34,24 @@ pipeline {
                 }
             }
         }
+        stage('deploy') {
+            environment {
+                DOCKER_CREDS = credentials('ecr-credentials')
+            }
+            steps {
+                script {
+                    echo 'Deploying docker image to EC2...'
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
+                    def ec2Instance = "ec2-user@3.135.210.237"
+
+                    sshagent(['ec2-server-key']) {
+                        sh "scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2Instance}:/home/ec2-user"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
+                        sh "scp -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+                    }
+                }
+            }
+        }
     }
     post {
         success {
