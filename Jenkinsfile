@@ -31,6 +31,20 @@ pipeline {
                 }
             }
         }
+        stage('Deploy the app') {
+            steps {
+                script {
+                    echo 'deploying docker image to EC2..'
+                    def dockerComposeCmd = 'docker-compose up -d'
+                    def ec2Instance = 'ec2-user@3.12.154.64'
+
+                    sshagent([ec2-server-key]) {
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${dockerComposeCmd}"
+                    }
+                }
+            }
+        }
     }
     post {
         success {
