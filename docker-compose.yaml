@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   my-java-app:
-    image: chinmayapradhan/java-mysql-app:${IMAGE_NAME}
+    image: ${IMAGE_REPO}:${IMAGE_NAME}
     ports:
       - "8080:8080"
     environment:
