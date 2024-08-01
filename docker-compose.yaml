@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  my-java-app:
+    image: chinmayapradhan/demo-app:java-mysql-app-monitoring
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PWD: ${DB_PWD}
+      DB_SERVER: ${DB_SERVER}
+      DB_NAME: ${DB_NAME}
+    container_name: my-java-app
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_user}
+      MYSQL_PASSWORD: ${DB_PWD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_PORT: ${PMA_PORT}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    links:
+      - mysql:db
+    ports:
+      - "8083:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+
+
+
+# export DB_USER=admin
+# export DB_PWD=adminpass
+# export DB_SERVER=mysql
+# export DB_NAME=team-member-projects
+# export MYSQL_ROOT_PASSWORD=rootpass
+# export PMA_HOST=mysql
+# export PMA_PORT=3306
