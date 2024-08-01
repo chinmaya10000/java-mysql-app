@@ -32,13 +32,17 @@ pipeline {
             }
         }
         stage('Deploy the app') {
+            environment {
+                DOCKER_CREDS = credentials('docker-hub-repo')
+            }
             steps {
                 script {
                     echo 'deploying docker image to EC2..'
-                    def dockerComposeCmd = 'docker-compose up -d'
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
                     def ec2Instance = 'ec2-user@3.12.154.64'
 
                     sshagent([ec2-server-key]) {
+                        sh "scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2Instance}:/home/ec2-user"
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
                         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${dockerComposeCmd}"
                     }
