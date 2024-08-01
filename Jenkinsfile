@@ -5,11 +5,8 @@ pipeline {
     agent any
 
     environment {
-        ECR_REPO_URL = '381491975963.dkr.ecr.us-east-2.amazonaws.com'
-        IMAGE_REPO = "${ECR_REPO_URL}/java-mysql-app"
+        IMAGE_REPO = "chinmayapradhan/java-mysql-app"
         IMAGE_NAME = "1.0-${BUILD_NUMBER}"
-        AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
         SLACK_CHANNEL = '#java-app'
     }
 
@@ -26,9 +23,9 @@ pipeline {
             steps {
                 script {
                     echo 'Build and Push Image..'
-                    withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "docker build -t ${IMAGE_REPO}:${IMAGE_NAME} ."
-                        sh "echo $PASS | docker login -u $USER --password-stdin ${ECR_REPO_URL}"
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push ${IMAGE_REPO}:${IMAGE_NAME}"
                     }
                 }
@@ -36,7 +33,7 @@ pipeline {
         }
         stage('deploy') {
             environment {
-                DOCKER_CREDS = credentials('ecr-credentials')
+                DOCKER_CREDS = credentials('docker-hub-repo')
             }
             steps {
                 script {
