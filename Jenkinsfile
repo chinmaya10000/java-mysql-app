@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         ECR_REPO_URL = '381491975963.dkr.ecr.us-east-2.amazonaws.com'
-        IMAGE_REPO = "${ECR_REPO_URL}/java-app"
+        IMAGE_REPO = "${ECR_REPO_URL}/java-mysql-app"
         IMAGE_NAME = "1.0-${BUILD_NUMBER}"
         AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
