@@ -6,7 +6,7 @@ pipeline {
 
     agent any
     environment {
-        IMAGE_NAME = 'chinmayapradhan/java-mysql-app:1.0'
+        IMAGE_NAME = 'chinmayapradhan/java-mysql-app:2.0'
     }
     
     stages {
