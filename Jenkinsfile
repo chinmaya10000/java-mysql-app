@@ -5,6 +5,9 @@
 pipeline {
 
     agent any
+    environment {
+        IMAGE_NAME = 'chinmayapradhan/java-mysql-app:1.0'
+    }
     
     stages {
         stage('build app') {
@@ -17,7 +20,9 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    buildImage 'chinmayapradhan/java-mysql-app:1.0'
+                    buildImage(env.IMAGE_NAME)
+                    dockerlogin()
+                    dockerPush(env.IMAGE_NAME)
                 }
             }
         }
