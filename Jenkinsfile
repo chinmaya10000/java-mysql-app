@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-@Library(jenkins-shared-library)_
+@Library('jenkins-shared-library')_
 
 pipeline {
 
@@ -17,7 +17,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    buildImage()
+                    buildImage 'chinmayapradhan/java-mysql-app:1.0'
                 }
             }
         }
