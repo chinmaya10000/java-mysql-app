@@ -1,0 +1,6 @@
+apVersion: v1
+kind: ConfigMap 
+metadata:
+  name: db-config
+data:
+  db_server: my-release-mysql-primary.default
