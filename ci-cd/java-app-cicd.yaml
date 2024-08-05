@@ -19,31 +19,31 @@ spec:
       - name: my-ecr-registry-key
       containers:
       - name: $APP_NAME
-        image: $IMAGE_REPO:$IMAGE_NAME
+        image: ${IMAGE_NAME}:${IMAGE_TAG}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
-         - name: DB_USER
-           valueFrom:
-             secretKeyRef:
-               name: db-secret
-               key: db_user
-         - name: DB_PWD
-           valueFrom:
-             secretKeyRef:
-               name: db-secret
-               key: db_pwd
-         - name: DB_NAME
-           valueFrom:
-             secretKeyRef:
-               name: db-secret
-               key: db_name
-         - name: DB_SERVER
-           valueFrom:
-             configMapKeyRef:
-              name: db-config
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              key: db_user
+              name: db-secret
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              key: db_pwd
+              name: db-secret
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              key: db_name
+              name: db-secret
+        - name: DB_SERVER
+          valueFrom:
+            configMapKeyRef:
               key: db_server
+              name: db-config
 ---
 apiVersion: v1
 kind: Service
@@ -56,3 +56,4 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
+    targetPort: 8080
