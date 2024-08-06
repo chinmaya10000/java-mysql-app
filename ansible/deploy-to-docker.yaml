@@ -44,3 +44,12 @@
       registry_url: https://index.docker.io/v1/
       username: "{{ docker_username }}"
       password: "{{ docker_password }}"
+  - name: Start container from Compose 
+    community.docker.docker_compose:
+      project_src: /home/ec2-user
+
+
+
+
+
+# ansible-playbook deploy-to-docker.yaml --extra-vars "docker_username={dockerhub_id} docker_passwor={registry password}"
