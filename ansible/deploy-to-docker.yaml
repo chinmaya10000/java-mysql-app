@@ -19,11 +19,6 @@
       name: docker
       state: started
       enabled: yes
-  - name: Install Docker Python Module
-    ansible.builtin.pip:
-      name: 
-      - docker
-      - docker-compose
 
 - name: Add user to docker group 
   hosts: dev_server
@@ -50,8 +45,9 @@
       username: "{{ docker_username }}"
       password: "{{ docker_password }}"
   - name: Start container from Compose 
-    community.docker.docker_compose:
-      project_src: /home/ec2-user
+    ansible.builtin.shell:
+      cmd: "docker-compose -f docker-compose.yml up -d"
+      chdir: /home/ec2-user/
 
 
 
