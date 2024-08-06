@@ -27,7 +27,7 @@
   - name: Add ec2-user to docker group
     ansible.builtin.user:
       name: ec2-user
-      group: docker
+      groups: docker
       append: yes
   - name: Reconnect to server connection
     ansible.builtin.meta: reset_connection
