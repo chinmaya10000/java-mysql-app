@@ -1,0 +1,21 @@
+--- 
+- name: Install Docker and Docker-Compose
+  hosts: 
+  become: yes
+  gather_facts: False
+  tasks:
+  - name: Install Docker
+    ansible.builtin.yum:
+      name: docker
+      update_cache: yes
+      state: present 
+  - name: Install Docker-Compose
+    ansible.builtin.get_url:
+      url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: +x
+  - name: Start Docker Daemon 
+    ansible.builtin.systemd_service:
+      name: docker
+      state: started
+      enabled: yes
