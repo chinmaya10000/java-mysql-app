@@ -1,6 +1,6 @@
 --- 
 - name: Install Docker and Docker-Compose
-  hosts: 
+  hosts: dev_server
   become: yes
   gather_facts: False
   tasks:

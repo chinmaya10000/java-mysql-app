@@ -1,1 +1,2 @@
-18.216.4.176 ansible_ssh_private_key_file=/home/ec2-user/ansible01feb_key.pem ansible_user=ec2-user
+[dev_server]
+18.119.136.183 ansible_ssh_private_key_file=/home/ec2-user/ansible01feb_key.pem ansible_user=ec2-user
