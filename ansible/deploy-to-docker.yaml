@@ -31,3 +31,11 @@
       append: yes
   - name: Reconnect to server connection
     ansible.builtin.meta: reset_connection
+
+- name: Start Docker Container
+  hosts: dev_server
+  tasks:
+  - name: Copy Docker compose
+    ansible.builtin.copy:
+      src: docker-compose.yaml
+      dest: /home/ec2-user/docker-compose.yaml
