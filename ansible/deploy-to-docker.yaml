@@ -19,6 +19,11 @@
       name: docker
       state: started
       enabled: yes
+  - name: Install Docker Python Module
+    ansible.builtin.pip:
+      name: 
+      - docker
+      - docker-compose
 
 - name: Add user to docker group 
   hosts: dev_server
