@@ -46,7 +46,7 @@
       password: "{{ docker_password }}"
   - name: Start container from Compose 
     ansible.builtin.shell:
-      cmd: "docker-compose -f docker-compose.yml up -d"
+      cmd: "docker-compose -f docker-compose.yaml up -d"
       chdir: /home/ec2-user/
 
 
