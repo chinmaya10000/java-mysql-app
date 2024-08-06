@@ -39,3 +39,8 @@
     ansible.builtin.copy:
       src: /home/ec2-user/java-mysql-app/ansible/docker-compose.yaml
       dest: /home/ec2-user/docker-compose.yaml
+  - name: Docker Login
+    community.docker.docker_login:
+      registry_url: https://index.docker.io/v1/
+      username: "{{ docker_username }}"
+      password: "{{ docker_password }}"
