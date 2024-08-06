@@ -37,5 +37,5 @@
   tasks:
   - name: Copy Docker compose
     ansible.builtin.copy:
-      src: docker-compose.yaml
+      src: /ansible/docker-compose.yaml
       dest: /home/ec2-user/docker-compose.yaml
