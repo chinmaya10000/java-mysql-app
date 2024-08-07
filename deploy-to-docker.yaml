@@ -1,0 +1,53 @@
+--- 
+- name: Install Docker and Docker-Compose
+  hosts: dev_server
+  become: yes
+  gather_facts: False
+  tasks:
+  - name: Install Docker
+    ansible.builtin.yum:
+      name: docker
+      update_cache: yes
+      state: present 
+  - name: Install Docker-Compose
+    ansible.builtin.get_url:
+      url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: +x
+  - name: Start Docker Daemon 
+    ansible.builtin.systemd_service:
+      name: docker
+      state: started
+      enabled: yes
+
+- name: Add user to docker group 
+  hosts: dev_server
+  become: yes
+  tasks:
+  - name: Add ec2-user to docker group
+    ansible.builtin.user:
+      name: ec2-user
+      groups: docker
+      append: yes
+  - name: Reconnect to server connection
+    ansible.builtin.meta: reset_connection
+
+- name: Start Docker Container
+  hosts: dev_server
+  tasks:
+  - name: Copy Docker compose
+    ansible.builtin.copy:
+      src: /home/ec2-user/java-mysql-app/ansible/docker-compose.yaml
+      dest: /home/ec2-user/docker-compose.yaml
+  - name: Docker Login
+    community.docker.docker_login:
+      registry_url: https://index.docker.io/v1/
+      username: "{{ docker_username }}"
+      password: "{{ docker_password }}"
+  - name: Start container from Compose 
+    ansible.builtin.shell:
+      cmd: "docker-compose -f docker-compose.yaml up -d"
+      chdir: /home/ec2-user/
+
+
+# ansible-playbook deploy-to-docker.yaml --extra-vars "docker_username={dockerhub_id} docker_passwor={registry password}"
