@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  name: db-config
+data:
+  # check the name of the mysql service with 'kubectl get svc' command
+  db_server: my-release-mysql-primary.default
