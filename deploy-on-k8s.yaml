@@ -30,3 +30,16 @@
       chart_ref: ingress-nginx/ingress-nginx
       release_namespace: ingress
       create_namespace: true
+
+  - name: Add Bitnami repository
+    kubernetes.core.helm_repository:
+      name: bitnami 
+      repo_url: https://charts.bitnami.com/bitnami
+      kubeconfig: ~/.kube/config
+  - name: Deploy Mysql chart with 3 replicas
+    kubernetes.core.helm:
+      name: mysql-release
+      chart_ref: bitnami/mysql
+      release_namespace: default
+      values: "{{ lookup('template', 'k8s-deployment/mysql-chart-values-eks.yaml') | from_yaml }}"
+
