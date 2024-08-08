@@ -18,3 +18,15 @@
         type: kubernetes.io/dockerconfigjson
         data:
           .dockerconfigjson: "{{ lookup('file', '~/.docker/config.json' ) | b64encode }}"
+  
+  #- name: Add ingress-nginx repository 
+    #kubernetes.core.helm_repository:
+      #name: ingress-nginx
+      #repo_url: https://kubernetes.github.io/ingress-nginx
+      #kubeconfig: ~/.kube/config
+  #- name: Deploy nginx ingress controller
+    #kubernetes.core.helm:
+      #name: ingress-controller
+      #chart_ref: ingress-nginx/ingress-nginx
+      #release_namespace: ingress
+      #create_namespace: true
