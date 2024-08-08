@@ -42,6 +42,7 @@
       chart_ref: bitnami/mysql
       release_namespace: default
       values: "{{ lookup('template', 'k8s-deployment/mysql-chart-values-eks.yaml') | from_yaml }}"
+    ignore_errors: True
   
   - name: Deploy Java application manifests
     kubernetes.core.k8s:
