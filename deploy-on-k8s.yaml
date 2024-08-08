@@ -5,3 +5,16 @@
     community.docker.docker_login:
       username: "{{ docker_user }}"
       password: "{{ docker_pass }}"
+  - name: Create docker registry secret
+    kubernetes.core.k8s:
+      state: present
+      kubeconfig: ~/.kube/config
+      definition:
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: my-registry-key
+          namespace: default
+        type: kubernetes.io/dockerconfigjson
+        data:
+          .dockerconfigjson: "{{ lookup('file', '~/.docker/config.json' ) | b64encode }}"
