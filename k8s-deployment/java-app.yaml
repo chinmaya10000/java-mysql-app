@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app-deployment
+  labels:
+    app: java-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: java-app
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      imagePullSecrets:
+      - name: my-registry-key
+      containers:
+      - name: java-app
+        image: chinmayapradhan/demo-app:java-mysql-app-monitoring
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: app
+          protocol: TCP
+        - containerPort: 8081
+          name: metrics
+          protocol: TCP
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db_user
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db_pwd
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db_name
+        - name: DB_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: db_server
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+  labels:
+    name: java-app
+spec:
+  selector:
+    name: java-app
+  ports:
+    - name: app
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    # We need an explicitly named ports in service for service monitor
+    - name: metrics
+      protocol: TCP
+      port: 8081
+      targetPort: metrics
