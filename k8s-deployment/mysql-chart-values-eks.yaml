@@ -9,13 +9,20 @@ auth:
 volumePermissions:
   enabled: true
 
+primary:
+  persistence:
+    enabled: false
+
 secondary:
   # 1 primary and 2 secondary replicas
   replicaCount: 2
   persistence:
-    accessModes: ["ReadWriteOnce"]
-    # storage class for EKS volumes
-    storageClass: gp2
+    enabled: false
+
+    # Storage class for EKS volumes
+    # storageClass: gp2
+    # accessModes: ["ReadWriteOnce"]
+
 
 metrics:
   enabled: true
