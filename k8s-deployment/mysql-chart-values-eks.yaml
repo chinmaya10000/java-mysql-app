@@ -1,11 +1,11 @@
 architecture: replication
+
 auth:
   rootPassword: secret-root-pass
   database: my-app-db
   username: my-user
   password: my-pass
 
-# enable init container that changes the owner and group of the persistent volume mountpoint to runAsUser:fsGroup
 volumePermissions:
   enabled: true
 
@@ -14,14 +14,9 @@ primary:
     enabled: false
 
 secondary:
-  # 1 primary and 2 secondary replicas
   replicaCount: 2
   persistence:
     enabled: false
-
-    # Storage class for EKS volumes
-    # storageClass: gp2
-    # accessModes: ["ReadWriteOnce"]
 
 metrics:
   enabled: true
@@ -29,6 +24,11 @@ metrics:
     enabled: true
     additionalLabels:
       release: my-kube-prometheus-stack
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9104"  # Default port for MySQL metrics exporter
+
 
 
 # helm repo add bitnami https://charts.bitnami.com/bitnami
