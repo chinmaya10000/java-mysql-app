@@ -2,9 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: java-app-ingress
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx  # Updated to use the spec.ingressClassName field
   rules:
   - host: a353771ef583749209a7cc0586337e88-221330250.us-east-2.elb.amazonaws.com
     http:
