@@ -57,7 +57,7 @@ metadata:
     name: java-app
 spec:
   selector:
-    name: java-app
+    app: java-app
   ports:
     - name: app
       protocol: TCP
