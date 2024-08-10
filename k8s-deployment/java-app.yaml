@@ -54,7 +54,7 @@ kind: Service
 metadata:
   name: java-app-service
   labels:
-    name: java-app
+    app: java-app
 spec:
   selector:
     app: java-app
