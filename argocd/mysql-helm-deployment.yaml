@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql-helm-deployment
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/chinmaya10000/java-mysql-app.git'
+    path: eks-deployment
+    targetRevision: main
+    helm:
+      valueFiles:
+        - ./eks-deployment/mysql-chart-values-eks.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
