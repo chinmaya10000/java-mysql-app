@@ -11,7 +11,7 @@ spec:
     targetRevision: main
     helm:
       valueFiles:
-        - ./eks-deployment/mysql-chart-values-eks.yaml
+        - mysql-chart-values-eks.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
