@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Run Gitleaks inside a Docker container
                 script {
-                    sh 'gitleaks detect --source=. --config-path=.gitleaks.toml -v --report-path=gitleaks-report.json'
+                    sh 'gitleaks detect --source=. --config=.gitleaks.toml -v --report-path=gitleaks-report.json'
                 }
             }
         }
