@@ -1,0 +1,45 @@
+title = "Organization Secret Scan Configuration"
+description = "Custom Gitleaks rules for scanning various secrets in codebase"
+
+# Rule 1: AWS Access Key
+[[rules]]
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+secret_group = 1
+tags = ["AWS", "key"]
+
+# Rule 2: AWS Secret Key
+[[rules]]
+description = "AWS Secret Key"
+regex = '''[a-zA-Z0-9/+]{40}'''
+secret_group = 1
+tags = ["AWS", "secret"]
+
+# Rule 3: SSH Private Key
+[[rules]]
+description = "SSH Private Key"
+regex = '''-----BEGIN (?:RSA|DSA|EC|OPENSSH) PRIVATE KEY-----'''
+secret_group = 1
+tags = ["SSH", "key"]
+
+# Rule 4: Generic API Key
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)api[_-]?key['"]?\s*[:=]\s*['"]?[A-Za-z0-9-_]{16,45}['"]?'''
+secret_group = 1
+tags = ["API", "key"]
+
+# Rule 5: Password in Environment Variable
+[[rules]]
+description = "Password in Environment Variable"
+regex = '''(?i)(password|pwd|passwd)['"]?\s*[:=]\s*['"]?[A-Za-z0-9@!#%^&*_]{8,}['"]?'''
+secret_group = 1
+tags = ["password", "env"]
+
+# Allowlist: Ignore some paths (e.g., test files, docs)
+[[allowlist.files]]
+description = "Ignore specific paths"
+paths = [
+  "docs/*",
+  "tests/*"
+]
